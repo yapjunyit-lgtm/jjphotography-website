@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You — JJ Photography</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/lumen.css">
+    <style>
+        .thank-you-section {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+        .thank-you-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            padding: 4rem 3rem;
+            max-width: 550px;
+        }
+        .thank-you-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        .thank-you-card h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        .thank-you-card p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        .thank-you-card .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .thank-you-card a.inline-link {
+            color: var(--accent);
+            text-decoration: underline;
+            transition: color 0.3s;
+        }
+        .thank-you-card a.inline-link:hover {
+            color: var(--text-primary);
+        }
+        @media (max-width: 768px) {
+            .thank-you-card { padding: 2.5rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- CURSOR / PROGRESS / PRELOADER -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="preloader" id="preloader">
+        <div class="preloader-logo">JJ</div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar" id="mainNav">
+        <div class="navbar-brand">
+            <span class="navbar-logo-text">JJ Photography</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- THANK YOU -->
+    <section class="thank-you-section">
+        <div class="thank-you-card">
+            <div class="thank-you-icon">📸</div>
+            <h1>Thank You!</h1>
+            <p>Your inquiry has been received.<br>
+            We'll get back to you <span class="highlight">within 2 hours</span> via WhatsApp or email.</p>
+            <p style="font-size:0.85rem; color:var(--text-muted);">
+                In the meantime, browse our
+                <a href="portfolio.html" class="inline-link">portfolio</a> or follow us on
+                <a href="https://instagram.com/jj.photography331" target="_blank" class="inline-link">Instagram</a>.
+            </p>
+            <a href="index.html" class="cta-button primary">BACK TO HOME</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-bottom" style="border-top:none; padding-top:2rem;">
+            <p>&copy; 2026 JJ Photography. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/lumen.js"></script>
+</body>
+</html>

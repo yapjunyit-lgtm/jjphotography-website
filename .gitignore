@@ -1,0 +1,16 @@
+_site/
+.netlify/
+.DS_Store
+node_modules/
+*.log
+# Root-level raw photos (not part of the site)
+/IMG_*.jpg
+/IMG_*.JPG
+/*.webp
+# Backup folders
+/originals-backup/
+# Python scripts and data (not needed for deployment)
+/*.py
+/*.csv
+/*.md
+/templates/

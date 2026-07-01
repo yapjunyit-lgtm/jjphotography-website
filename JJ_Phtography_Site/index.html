@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="JJ Photography — Premium freelance photography and videography in Selangor and Kuala Lumpur. EST. 2020.">
+    <meta property="og:title" content="JJ Photography — Capturing Moments That Matter">
+    <meta property="og:image" content="images/logo.png">
+    <title>JJ Photography — Capturing Moments That Matter</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/lumen.css">
+    <style>
+        .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:0 40px}
+        .hero-bg{position:absolute;inset:-10%;background-image:url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=1920&q=85');background-size:cover;background-position:center;will-change:transform;z-index:0}
+        .hero-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 30%,rgba(10,10,10,0.85) 100%)}
+        .hero-grain{position:absolute;inset:0;z-index:1;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none}
+        .hero-content{position:relative;z-index:2;text-align:center;max-width:900px}
+        .hero-line{overflow:hidden;display:block}
+        .hero-line-inner{display:block;transform:translateY(100%);will-change:transform}
+        .hero-eyebrow{font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem}
+        .hero-title{font-family:'Playfair Display',serif;font-size:clamp(3rem,7vw,6.5rem);font-weight:500;line-height:1.05;color:var(--text-primary);margin-bottom:1.5rem}
+        .scroll-indicator{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.6}
+        .scroll-indicator span{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted)}
+        .scroll-indicator-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--accent),transparent);animation:scrollPulse 2s ease-in-out infinite}
+        @keyframes scrollPulse{0%,100%{opacity:.3;transform:scaleY(.6);transform-origin:top}50%{opacity:1;transform:scaleY(1);transform-origin:top}}
+        .filter-btn{padding:8px 22px;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);border:1px solid var(--border-subtle);border-radius:100px;transition:all .35s var(--transition-smooth);cursor:none}
+        .filter-btn.active,.filter-btn:hover{color:var(--accent);border-color:var(--accent);background:rgba(200,169,81,.06)}
+        .gallery-filters{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-bottom:3rem}
+        .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:4px;max-width:1600px;margin:0 auto}
+        .gallery-item{position:relative;overflow:hidden;aspect-ratio:4/3;cursor:none;background:var(--bg-surface);opacity:0;transform:translateY(20px);animation:galleryFadeIn .6s cubic-bezier(.65,0,.35,1) forwards}
+        @keyframes galleryFadeIn{to{opacity:1;transform:translateY(0)}}
+        .gallery-item.hidden{display:none}
+        .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--transition-smooth);will-change:transform}
+        .gallery-item:hover img{transform:scale(1.06)}
+        .gallery-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.85) 0%,rgba(10,10,10,0) 60%);display:flex;align-items:flex-end;padding:24px;opacity:0;transition:opacity .45s var(--transition-smooth)}
+        .gallery-item:hover .gallery-overlay{opacity:1}
+        .gallery-overlay-category{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+        .gallery-overlay-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--text-primary)}
+        .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:99990;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .4s var(--transition-smooth),visibility .4s var(--transition-smooth)}
+        .lightbox.open{opacity:1;visibility:visible}
+        .lightbox img{max-width:90vw;max-height:85vh;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.6);transform:scale(.92);transition:transform .5s cubic-bezier(.34,1.56,.64,1)}
+        .lightbox.open img{transform:scale(1)}
+        .lightbox-close{position:absolute;top:24px;right:32px;font-size:2rem;color:var(--text-primary);z-index:99991;cursor:none;width:48px;height:48px;display:flex;align-items:center;justify-content:center;transition:color .3s}
+        .lightbox-close:hover{color:var(--accent)}
+        .lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);font-size:2.5rem;color:var(--text-primary);z-index:99991;cursor:none;padding:20px;transition:color .3s}
+        .lightbox-nav:hover{color:var(--accent)}
+        .lightbox-prev{left:16px}.lightbox-next{right:16px}
+        .lightbox-caption{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);text-align:center}
+        .lightbox-caption-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--text-primary)}
+        .lightbox-caption-category{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+        .about{padding:140px 60px}
+        .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1300px;margin:0 auto}
+        .about-image-wrapper{position:relative;overflow:hidden;border-radius:2px;aspect-ratio:3/4}
+        .about-image-wrapper img{width:100%;height:100%;object-fit:cover;filter:grayscale(20%);transition:filter .6s}
+        .about-image-wrapper:hover img{filter:grayscale(0)}
+        .about-image-reveal{position:absolute;inset:0;background:var(--bg-deep);transform-origin:top;will-change:transform}
+        .about-text p{color:var(--text-secondary);line-height:1.8;margin-bottom:1.2rem;font-size:.95rem}
+        .about-stats{display:flex;gap:3rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border-subtle)}
+        .about-stat{text-align:center}
+        .about-stat-number{font-family:'Playfair Display',serif;font-size:2.4rem;color:var(--accent);line-height:1}
+        .about-stat-label{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-top:6px}
+        .services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;max-width:1400px;margin:0 auto;background:var(--border-subtle)}
+        .service-card{background:var(--bg-surface);padding:50px 36px;text-align:center;transition:all .45s var(--transition-smooth);position:relative;overflow:hidden}
+        .service-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at center,rgba(200,169,81,.05) 0%,transparent 70%);opacity:0;transition:opacity .45s var(--transition-smooth)}
+        .service-card:hover::before{opacity:1}.service-card:hover{transform:translateY(-6px)}
+        .service-icon{font-size:2.5rem;margin-bottom:1.5rem;display:block}
+        .service-card h3{font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:.8rem;color:var(--text-primary)}
+        .service-card p{font-size:.85rem;color:var(--text-secondary);line-height:1.6}
+        .testimonials{background:var(--bg-surface);padding:120px 40px;overflow:hidden}
+        .testimonials-header{text-align:center;margin-bottom:3rem}
+        .testimonials-track-wrapper{max-width:900px;margin:0 auto;position:relative;overflow:hidden}
+        .testimonials-track{display:flex;transition:transform .6s var(--transition-smooth)}
+        .testimonial-slide{min-width:100%;text-align:center;padding:0 40px}
+        .testimonial-stars{font-size:1rem;letter-spacing:.2em;color:var(--accent);margin-bottom:1.5rem}
+        .testimonial-text{font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2.5vw,1.5rem);font-style:italic;color:var(--text-primary);line-height:1.7;margin-bottom:2rem}
+        .testimonial-author{font-size:.85rem;color:var(--accent);letter-spacing:.08em}
+        .testimonial-role{font-size:.7rem;color:var(--text-muted);letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
+        .testimonials-controls{display:flex;justify-content:center;align-items:center;gap:24px;margin-top:2.5rem}
+        .testimonial-btn{width:44px;height:44px;border:1px solid var(--border-subtle);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--text-muted);transition:all .35s var(--transition-smooth);cursor:none}
+        .testimonial-btn:hover{border-color:var(--accent);color:var(--accent)}
+        .testimonial-dots{display:flex;gap:8px}
+        .testimonial-dot{width:6px;height:6px;border-radius:50%;background:var(--text-muted);transition:all .35s;cursor:none}
+        .testimonial-dot.active{background:var(--accent);width:24px;border-radius:100px}
+        .cta-section{text-align:center;padding:140px 40px}
+        .cta-buttons{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
+        @media(max-width:768px){.hero{padding:0 20px;min-height:90vh}.scroll-indicator{bottom:20px}.gallery-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:3px}.gallery-overlay{opacity:.85}.gallery-overlay-title{font-size:.85rem}.lightbox img{max-width:95vw;max-height:80vh}.lightbox-nav{font-size:1.8rem;padding:12px}.lightbox-next,.lightbox-prev{left:4px;right:4px}.about{padding:80px 20px}.about-grid{grid-template-columns:1fr;gap:40px}.about-stats{gap:1.5rem}.about-stat-number{font-size:1.8rem}.testimonials{padding:80px 20px}.testimonial-slide{padding:0 10px}.cta-section{padding:80px 20px}}
+        @media(max-width:1024px){.services-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:640px){.services-grid{grid-template-columns:1fr}.service-card{padding:36px 24px}}
+    </style>
+</head>
+<body>
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="preloader" id="preloader"><div class="preloader-logo">JJ</div></div>
+
+    <nav class="nav-dots" id="navDots">
+        <a href="#hero" class="nav-dot active" data-section="hero"><span class="nav-dot-label">Home</span></a>
+        <a href="#portfolio" class="nav-dot" data-section="portfolio"><span class="nav-dot-label">Portfolio</span></a>
+        <a href="#about" class="nav-dot" data-section="about"><span class="nav-dot-label">About</span></a>
+        <a href="#services" class="nav-dot" data-section="services"><span class="nav-dot-label">Services</span></a>
+        <a href="#testimonials" class="nav-dot" data-section="testimonials"><span class="nav-dot-label">Reviews</span></a>
+        <a href="#contact" class="nav-dot" data-section="contact"><span class="nav-dot-label">Contact</span></a>
+    </nav>
+
+    <nav class="navbar" id="mainNav">
+        <div class="navbar-brand"><span class="navbar-logo-text">JJ Photography</span></div>
+        <ul class="nav-links">
+            <li><a href="#hero" class="active">Home</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <a href="#hero">Home</a><a href="portfolio.html">Portfolio</a><a href="pricing.html">Pricing</a><a href="contact.html">Contact</a><a href="#about">About</a><a href="#testimonials">Reviews</a>
+    </div>
+
+    <section class="hero page-section" id="hero">
+        <div class="hero-bg" id="heroBg"></div><div class="hero-grain"></div>
+        <div class="hero-content">
+            <span class="hero-eyebrow"><span class="hero-line"><span class="hero-line-inner" data-reveal>EST. 2020 &middot; Selangor / Kuala Lumpur</span></span></span>
+            <h1 class="hero-title">
+                <span class="hero-line"><span class="hero-line-inner" data-reveal>Capturing</span></span>
+                <span class="hero-line"><span class="hero-line-inner" data-reveal>Moments That</span></span>
+                <span class="hero-line"><span class="hero-line-inner" data-reveal><em>Matter</em></span></span>
+            </h1>
+            <p style="text-align:center;max-width:500px;margin:0 auto 2.5rem;font-weight:300;font-size:1.05rem;color:var(--text-secondary);">
+                <span class="hero-line"><span class="hero-line-inner" data-reveal>Premium freelance photography &amp; videography. Weddings, events, portraits, and more.</span></span>
+            </p>
+            <a href="#portfolio" class="cta-button" data-reveal>Explore Our Work</a>
+        </div>
+        <div class="scroll-indicator"><span>Scroll</span><div class="scroll-indicator-line"></div></div>
+    </section>
+
+    <section class="page-section" id="portfolio">
+        <div class="section-header reveal-on-scroll">
+            <span class="section-label">Portfolio — <a href="portfolio.html" style="color:var(--accent);">View All</a></span>
+            <h2 class="section-title">Selected Works</h2>
+            <p class="section-subtitle" style="margin:0 auto;">A curated collection of our finest moments captured across stage, events, portraits, and beyond.</p>
+        </div>
+        <div class="gallery-filters reveal-on-scroll">
+            <button class="filter-btn active" data-filter="all">All Work</button>
+            <button class="filter-btn" data-filter="stage">Stage &amp; Performance</button>
+            <button class="filter-btn" data-filter="portraits">Portraits</button>
+            <button class="filter-btn" data-filter="formal">Formal Events</button>
+            <button class="filter-btn" data-filter="event">Events</button>
+            <button class="filter-btn" data-filter="birthday">Birthday Parties</button>
+            <button class="filter-btn" data-filter="product">Product</button>
+        </div>
+        <div class="gallery-grid" id="galleryGrid"></div>
+    </section>
+
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">&times;</button>
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev">‹</button>
+        <button class="lightbox-nav lightbox-next" id="lightboxNext">›</button>
+        <img src="" alt="" id="lightboxImg">
+        <div class="lightbox-caption"><p class="lightbox-caption-category" id="lightboxCategory"></p><p class="lightbox-caption-title" id="lightboxTitle"></p></div>
+    </div>
+
+    <section class="page-section about" id="about">
+        <div class="about-grid">
+            <div class="about-image-wrapper" id="aboutImage">
+                <img src="https://images.unsplash.com/photo-1552168324-d612d77725e3?w=800&q=85" alt="Photographer at work" loading="lazy">
+                <div class="about-image-reveal" id="aboutImageReveal"></div>
+            </div>
+            <div class="about-text reveal-on-scroll">
+                <span class="section-label">The Artist</span>
+                <h2 class="section-title">We See What<br>Others Miss</h2>
+                <p>JJ Photography was born from a simple belief: every moment has weight, and the right frame can hold it forever. Since 2020, we've been telling stories through light and shadow across Selangor and Kuala Lumpur.</p>
+                <p>Our approach is unobtrusive yet intentional. We don't stage moments — we position ourselves so they unfold naturally before our lenses.</p>
+                <div class="about-stats">
+                    <div class="about-stat"><div class="about-stat-number">6+</div><div class="about-stat-label">Years Experience</div></div>
+                    <div class="about-stat"><div class="about-stat-number">500+</div><div class="about-stat-label">Events Covered</div></div>
+                    <div class="about-stat"><div class="about-stat-number">100%</div><div class="about-stat-label">Client Satisfaction</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section" id="services">
+        <div class="section-header reveal-on-scroll">
+            <span class="section-label">What We Offer</span>
+            <h2 class="section-title">Our Services</h2>
+            <p class="section-subtitle">Comprehensive photography and videography solutions tailored to your needs.</p>
+        </div>
+        <div style="text-align:center;margin-bottom:2.5rem;"><a href="pricing.html" class="cta-button">View Full Pricing</a></div>
+        <div class="services-grid">
+            <div class="service-card reveal-on-scroll"><span class="service-icon">📷</span><h3>Photography</h3><p>High-quality stills for weddings, events, portraits, and corporate functions with professional lighting and composition.</p></div>
+            <div class="service-card reveal-on-scroll"><span class="service-icon">🎥</span><h3>Videography</h3><p>Cinematic video production and editing services to capture your special moments in motion.</p></div>
+            <div class="service-card reveal-on-scroll"><span class="service-icon">👥</span><h3>Event Coverage</h3><p>Complete multi-angle coverage with multiple photographers and videographers on-site for large events.</p></div>
+            <div class="service-card reveal-on-scroll"><span class="service-icon">🎬</span><h3>Post-Production</h3><p>Expert color grading, retouching, and editing to ensure every image and video meets the highest standards.</p></div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <div class="testimonials-header reveal-on-scroll"><span class="section-label">Kind Words</span><h2 class="section-title">What Clients Say</h2></div>
+        <div class="testimonials-track-wrapper reveal-on-scroll">
+            <div class="testimonials-track" id="testimonialsTrack">
+                <div class="testimonial-slide"><p class="testimonial-stars">★★★★★</p><p class="testimonial-text">"Jun Yit did an amazing job capturing our graduation ceremony. The photos were stunning and delivered quickly. Highly recommended!"</p><p class="testimonial-author">Graduation Client</p><p class="testimonial-role">Graduation Photography</p></div>
+                <div class="testimonial-slide"><p class="testimonial-stars">★★★★★</p><p class="testimonial-text">"Professional, punctual, and great with kids! Our son's birthday party was perfectly documented. The candid shots were our favorite."</p><p class="testimonial-author">Birthday Party Client</p><p class="testimonial-role">Birthday Party Coverage</p></div>
+                <div class="testimonial-slide"><p class="testimonial-stars">★★★★★</p><p class="testimonial-text">"Booked JJ Photography for our company event. Very responsive, arrived early, and the final photos exceeded our expectations."</p><p class="testimonial-author">Corporate Client</p><p class="testimonial-role">Corporate Event</p></div>
+            </div>
+        </div>
+        <div class="testimonials-controls">
+            <button class="testimonial-btn" id="testimonialPrev">←</button>
+            <div class="testimonial-dots" id="testimonialDots"></div>
+            <button class="testimonial-btn" id="testimonialNext">→</button>
+        </div>
+    </section>
+
+    <section class="page-section cta-section" id="contact">
+        <div class="reveal-on-scroll">
+            <span class="section-label">Get In Touch</span>
+            <h2 class="section-title">Let's Create Something Beautiful</h2>
+            <p class="section-subtitle" style="margin:0 auto 2.5rem;">Have a shoot in mind? Reach out and let's discuss how we can bring your vision to life.</p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="cta-button primary">Contact Us</a>
+                <a href="https://wa.me/601127322148" target="_blank" class="cta-button">WhatsApp Us</a>
+                <a href="https://instagram.com/jj.photography331" target="_blank" class="cta-button">Instagram</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div><div class="footer-brand">JJ Photography</div><p class="footer-desc">Premium freelance photography and videography services. Capturing memories across Selangor and Kuala Lumpur since 2020.</p></div>
+            <div class="footer-col"><h4>Navigate</h4><a href="index.html">Home</a><a href="portfolio.html">Gallery</a><a href="pricing.html">Pricing</a><a href="contact.html">Contact</a><a href="#about">About</a></div>
+            <div class="footer-col"><h4>Contact</h4><p>+60 11-2732 2148</p><p>yapjunyit@gmail.com</p><p>Selangor / Kuala Lumpur</p><a href="https://instagram.com/jj.photography331" target="_blank">@jj.photography331</a></div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 JJ Photography. All rights reserved. &middot; Capturing Memories Since 2020</div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="js/lumen.js"></script>
+    <script>
+        var galleryItems=[{category:'stage',title:'Drum Ensemble',img:'images/stage-performances/2O7A2941.JPG'},{category:'stage',title:'Solo Performance',img:'images/stage-performances/2O7A3180.JPG'},{category:'stage',title:'Group Performance',img:'images/stage-performances/2O7A3425.JPG'},{category:'stage',title:'Orchestra Concert',img:'images/stage-performances/2O7A3456.JPG'},{category:'stage',title:'String Orchestra',img:'images/stage-performances/2O7A3498.JPG'},{category:'stage',title:'Concert Evening',img:'images/stage-performances/JJ--105.jpg'},{category:'portraits',title:'Beach Portrait',img:'images/personal-portraits/%23JJ0007-F--3.jpg'},{category:'portraits',title:'Traditional Portrait',img:'images/personal-portraits/%23JJ0007-F--37.jpg'},{category:'portraits',title:'Casual Beach Shot',img:'images/personal-portraits/%23JJ0007-F--41.jpg'},{category:'portraits',title:'Studio Portrait',img:'images/personal-portraits/%23JJ0007-F--44.jpg'},{category:'portraits',title:'Outdoor Portrait',img:'images/personal-portraits/%23JJ0007-F--8.jpg'},{category:'formal',title:'Panel Discussion',img:'images/formal-events/JJ-00010-145.jpg'},{category:'formal',title:'Conference Attendees',img:'images/formal-events/JJ-00010-147.jpg'},{category:'formal',title:'Speaker Presentation',img:'images/formal-events/JJ-00010-154.jpg'},{category:'formal',title:'Corporate Event',img:'images/formal-events/JJ-00010-287.jpg'},{category:'formal',title:'Lecture Hall',img:'images/formal-events/JJ-00010-29.jpg'},{category:'event',title:'Backstage Moments',img:'images/events/%23JJ0002-1-Backstage-144.jpg'},{category:'event',title:'Prom Night',img:'images/events/%23JJ0002-1-Prom%20Night%2025%27-168.jpg'},{category:'event',title:'Crowd Moments',img:'images/events/%23JJ0002-1-Prom%20Night%2025%27-265.jpg'},{category:'event',title:'Candid Moments',img:'images/events/%23JJ0007-G--7.jpg'},{category:'event',title:'Guest Interactions',img:'images/events/%23JJ0007-G--22.jpg'},{category:'birthday',title:'Racing Themed Party',img:'images/birthday-parties/%23F%26G-1-582.jpg'},{category:'birthday',title:'Mother & Child',img:'images/birthday-parties/%23F%26G-1-611.jpg'},{category:'birthday',title:'Bubble Play Time',img:'images/birthday-parties/%23JJ0009%20%28146%20of%20205%29.jpg'},{category:'birthday',title:'Birthday Cake',img:'images/birthday-parties/%23JJ0009%20%283%20of%20205%29.jpg'},{category:'birthday',title:'Outdoor Setup',img:'images/birthday-parties/%23JJ0009%20%2837%20of%20205%29.jpg'},{category:'product',title:'Product Shot',img:'images/product/%23JJ0006_P-10.jpg'},{category:'product',title:'Product Display',img:'images/product/%23JJ0006_P-2.jpg'},{category:'product',title:'Product Detail',img:'images/product/%23JJ0006_P-20.jpg'},{category:'product',title:'Product Showcase',img:'images/product/%23JJ0006_P-28.jpg'},{category:'product',title:'Studio Product',img:'images/product/%23JJ0006_P-34.jpg'}];
+        var grid=document.getElementById('galleryGrid');
+        galleryItems.forEach(function(item,i){var el=document.createElement('div');el.className='gallery-item';el.setAttribute('data-category',item.category);el.setAttribute('data-index',i);el.style.animationDelay=(i%12)*.05+'s';el.innerHTML='<img src="'+item.img+'" alt="'+item.title+'" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-content"><p class="gallery-overlay-category">'+item.category+'</p><p class="gallery-overlay-title">'+item.title+'</p></div></div>';el.addEventListener('click',function(){openLightbox(i)});grid.appendChild(el)});
+        document.querySelectorAll('.filter-btn').forEach(function(btn){btn.addEventListener('click',function(){document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active')});btn.classList.add('active');var filter=btn.getAttribute('data-filter');document.querySelectorAll('.gallery-item').forEach(function(item,j){if(filter==='all'||item.getAttribute('data-category')===filter){item.classList.remove('hidden');item.style.animation='none';item.offsetHeight;item.style.animation='galleryFadeIn .5s cubic-bezier(.65,0,.35,1) forwards';item.style.animationDelay=(j%8)*.05+'s'}else{item.classList.add('hidden')}})})});
+        var lb=document.getElementById('lightbox'),lbImg=document.getElementById('lightboxImg'),lbCat=document.getElementById('lightboxCategory'),lbTtl=document.getElementById('lightboxTitle'),curIdx=-1;
+        function openLightbox(i){curIdx=i;var item=galleryItems[i];lbImg.src=item.img;lbImg.alt=item.title;lbCat.textContent=item.category;lbTtl.textContent=item.title;lb.classList.add('open');document.body.style.overflow='hidden'}
+        document.getElementById('lightboxClose').addEventListener('click',function(){lb.classList.remove('open');document.body.style.overflow='';curIdx=-1});
+        document.getElementById('lightboxPrev').addEventListener('click',function(){if(curIdx>0)openLightbox(curIdx-1)});
+        document.getElementById('lightboxNext').addEventListener('click',function(){if(curIdx<galleryItems.length-1)openLightbox(curIdx+1)});
+        lb.addEventListener('click',function(e){if(e.target===lb){lb.classList.remove('open');document.body.style.overflow=''}});
+        document.addEventListener('keydown',function(e){if(!lb.classList.contains('open'))return;if(e.key==='Escape'){lb.classList.remove('open');document.body.style.overflow=''}if(e.key==='ArrowLeft'&&curIdx>0)openLightbox(curIdx-1);if(e.key==='ArrowRight'&&curIdx<galleryItems.length-1)openLightbox(curIdx+1)});
+        var navDots=document.querySelectorAll('.nav-dot'),sections=Array.from(navDots).map(function(d){return document.getElementById(d.getAttribute('data-section'))}).filter(Boolean);
+        window.addEventListener('scroll',function(){var mid=window.scrollY+window.innerHeight*.4,active=sections[0];sections.forEach(function(s){if(s.offsetTop<=mid)active=s});navDots.forEach(function(d){d.classList.toggle('active',d.getAttribute('data-section')===active.id)})});
+        navDots.forEach(function(dot){dot.addEventListener('click',function(e){e.preventDefault();var t=document.getElementById(dot.getAttribute('data-section'));if(t)t.scrollIntoView({behavior:'smooth'})})});
+        var track=document.getElementById('testimonialsTrack'),dotsC=document.getElementById('testimonialDots'),slides=document.querySelectorAll('.testimonial-slide'),curSlide=0,interval;
+        slides.forEach(function(_,i){var dot=document.createElement('div');dot.className='testimonial-dot'+(i===0?' active':'');dot.addEventListener('click',function(){goSlide(i)});dotsC.appendChild(dot)});
+        function goSlide(i){curSlide=i;track.style.transform='translateX(-'+(i*100)+'%)';dotsC.querySelectorAll('.testimonial-dot').forEach(function(d,j){d.classList.toggle('active',j===i)})}
+        document.getElementById('testimonialNext').addEventListener('click',function(){goSlide((curSlide+1)%slides.length);resetIv()});
+        document.getElementById('testimonialPrev').addEventListener('click',function(){goSlide((curSlide-1+slides.length)%slides.length);resetIv()});
+        function startIv(){interval=setInterval(function(){goSlide((curSlide+1)%slides.length)},5000)}
+        function resetIv(){clearInterval(interval);startIv()}
+        startIv();
+        document.addEventListener('DOMContentLoaded',function(){gsap.registerPlugin(ScrollTrigger);gsap.to('[data-reveal]',{y:0,duration:1,ease:'power3.out',stagger:.15,delay:.8});gsap.to('#heroBg',{y:'15%',ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});gsap.to('#aboutImageReveal',{scaleY:0,ease:'power3.inOut',scrollTrigger:{trigger:'#about',start:'top 60%',end:'bottom 40%',scrub:1}});gsap.to('.scroll-indicator',{opacity:0,scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom 30%',scrub:true}})});
+    </script>
+</body>
+</html>

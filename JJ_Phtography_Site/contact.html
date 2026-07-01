@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact JJ Photography for freelance photography and videography services in Selangor and Kuala Lumpur.">
+    <meta property="og:title" content="JJ Photography — Contact Us">
+    <meta property="og:image" content="images/logo.png">
+    <title>JJ Photography — Contact Us</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/lumen.css">
+    <style>
+        /* ── Contact Methods Grid ─────────────────── */
+        .contact-methods { padding: 80px 40px; }
+        .contact-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1px;
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--border-subtle);
+        }
+        .contact-card {
+            background: var(--bg-surface);
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: all 0.4s var(--transition-smooth);
+        }
+        .contact-card:hover {
+            background: var(--bg-elevated);
+            transform: translateY(-4px);
+        }
+        .contact-icon-box {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        .contact-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin-bottom: 0.6rem;
+        }
+        .contact-value {
+            display: block;
+            font-size: 1rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+            transition: color 0.3s;
+        }
+        .contact-value:hover { color: var(--text-primary); }
+        .contact-action {
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        /* ── Contact Form ────────────────────────── */
+        .contact-form-section { padding: 80px 40px; }
+        .contact-form {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 3rem;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            color: var(--accent);
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-deep);
+            font-family: inherit;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            transition: border-color 0.3s;
+            border-radius: 0;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .form-group textarea { resize: vertical; }
+
+        .contact-form .cta-button { width: 100%; margin-top: 0.5rem; }
+
+        /* ── Service Area ────────────────────────── */
+        .service-area { padding: 80px 40px; }
+        .service-area-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            padding: 3rem;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .service-area-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+        .service-area-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        .service-area-card h4 {
+            font-size: 1.1rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        .service-area-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
+
+        /* ── Business Hours ──────────────────────── */
+        .business-hours {
+            padding: 80px 40px;
+            background: var(--bg-surface);
+            text-align: center;
+        }
+        .business-hours h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        .hours-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        .hours-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* ── CTA Section ─────────────────────────── */
+        .ready-to-work {
+            padding: 100px 40px;
+            text-align: center;
+        }
+        .ready-icon { font-size: 2.5rem; margin-bottom: 1.5rem; display: block; }
+        .ready-to-work h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        .ready-to-work p { color: var(--text-secondary); margin-bottom: 2rem; }
+        .action-buttons {
+            display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;
+        }
+        .btn-action {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 14px 36px;
+            font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+            text-decoration: none;
+            border: 1.5px solid var(--accent);
+            color: var(--accent);
+            transition: all 0.4s var(--transition-smooth);
+            cursor: none;
+        }
+        .btn-action:hover { background: var(--accent); color: var(--bg-deep); }
+        .btn-action.primary { background: var(--accent); color: var(--bg-deep); }
+        .btn-action.primary:hover { background: transparent; color: var(--accent); }
+
+        @media (max-width: 768px) {
+            .contact-methods, .contact-form-section, .service-area, .business-hours, .ready-to-work { padding: 60px 20px; }
+            .contact-form { padding: 2rem 1.5rem; }
+            .form-row { grid-template-columns: 1fr; }
+            .contact-cards { grid-template-columns: 1fr 1fr; }
+            .action-buttons { flex-direction: column; }
+            .btn-action { justify-content: center; }
+        }
+        @media (max-width: 480px) {
+            .contact-cards { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- CURSOR / PROGRESS / PRELOADER -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="preloader" id="preloader"><div class="preloader-logo">JJ</div></div>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar" id="mainNav">
+        <div class="navbar-brand">
+            <span class="navbar-logo-text">JJ Photography</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <span class="section-label">Get In Touch</span>
+        <h1 class="section-title">Contact Us</h1>
+        <p class="section-subtitle" style="margin:0 auto;">Let's discuss your photography and videography needs</p>
+        <div class="header-divider">◆</div>
+    </section>
+
+    <!-- CONTACT METHODS -->
+    <section class="contact-methods">
+        <div class="container">
+            <div class="contact-cards">
+                <div class="contact-card reveal-on-scroll">
+                    <div class="contact-icon-box">📞</div>
+                    <h3 class="contact-title">Phone</h3>
+                    <a href="tel:+60112732214" class="contact-value">+60 11-2732 2148</a>
+                    <p class="contact-action">Tap to Call</p>
+                </div>
+                <div class="contact-card reveal-on-scroll">
+                    <div class="contact-icon-box">✉️</div>
+                    <h3 class="contact-title">Email</h3>
+                    <a href="mailto:yapjunyit@gmail.com" class="contact-value">yapjunyit@gmail.com</a>
+                    <p class="contact-action">Send an Email</p>
+                </div>
+                <div class="contact-card reveal-on-scroll">
+                    <div class="contact-icon-box">💬</div>
+                    <h3 class="contact-title">WhatsApp</h3>
+                    <a href="https://wa.me/60112732214" target="_blank" class="contact-value">+60 11-2732 2148</a>
+                    <p class="contact-action">Chat With Us</p>
+                </div>
+                <div class="contact-card reveal-on-scroll">
+                    <div class="contact-icon-box">📱</div>
+                    <h3 class="contact-title">Instagram</h3>
+                    <a href="https://instagram.com/jj.photography331" target="_blank" class="contact-value">@jj.photography331</a>
+                    <p class="contact-action">Follow Us</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT FORM -->
+    <section class="contact-form-section">
+        <div class="container">
+            <div class="section-header reveal-on-scroll">
+                <span class="section-label">Send A Message</span>
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle" style="margin:0 auto;">Fill out the form below and we'll get back to you within 24 hours</p>
+            </div>
+            <form class="contact-form reveal-on-scroll" action="https://api.web3forms.com/submit" method="POST">
+                <input type="hidden" name="access_key" value="d3a204e0-4bf8-4057-a410-a652efc60842">
+                <input type="hidden" name="subject" value="New Inquiry from JJ Photography Website">
+                <input type="hidden" name="from_name" value="JJ Photography Website">
+                <input type="hidden" name="redirect" value="https://jjproduction331.netlify.app/thank-you.html">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" required placeholder="Your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required placeholder="Your email address">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Your phone number">
+                    </div>
+                    <div class="form-group">
+                        <label for="event-type">Event Type</label>
+                        <select id="event-type" name="event-type">
+                            <option value="">Select an event type</option>
+                            <option value="Wedding">Wedding</option>
+                            <option value="Graduation">Graduation</option>
+                            <option value="Birthday">Birthday Party</option>
+                            <option value="Corporate">Corporate Event</option>
+                            <option value="Portrait">Personal Portrait</option>
+                            <option value="Product">Product Photography</option>
+                            <option value="Stage">Stage Performance</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="event-date">Event Date</label>
+                        <input type="date" id="event-date" name="event-date">
+                    </div>
+                    <div class="form-group">
+                        <label for="budget">Budget (RM)</label>
+                        <select id="budget" name="budget">
+                            <option value="">Select your budget range</option>
+                            <option value="Below RM300">Below RM300</option>
+                            <option value="RM300 - RM500">RM300 – RM500</option>
+                            <option value="RM500 - RM1000">RM500 – RM1,000</option>
+                            <option value="RM1000 - RM2000">RM1,000 – RM2,000</option>
+                            <option value="Above RM2000">Above RM2,000</option>
+                            <option value="Not Sure">Not Sure / Discuss</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="source">How did you hear about us?</label>
+                        <select id="source" name="source">
+                            <option value="">Select an option</option>
+                            <option value="Instagram">Instagram</option>
+                            <option value="Xiaohongshu">小红书 (Xiaohongshu)</option>
+                            <option value="Friend Referral">Friend / Referral</option>
+                            <option value="Google Search">Google Search</option>
+                            <option value="Event/Exhibition">Event / Exhibition</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="referral-group" style="display:none;">
+                        <label for="referral-name">Who referred you?</label>
+                        <input type="text" id="referral-name" name="referral-name" placeholder="Referrer's name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" rows="5" required placeholder="Tell us about your event and what you're looking for..."></textarea>
+                </div>
+                <button type="submit" class="cta-button primary" id="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- SERVICE AREA -->
+    <section class="service-area">
+        <div class="service-area-card reveal-on-scroll">
+            <div class="service-area-icon">📍</div>
+            <h3>Service Area</h3>
+            <h4>Selangor / Kuala Lumpur</h4>
+            <p>We provide photography and videography services across Selangor and Kuala Lumpur</p>
+        </div>
+    </section>
+
+    <!-- BUSINESS HOURS -->
+    <section class="business-hours">
+        <h2>Business Hours</h2>
+        <p class="hours-label">Contact for Availability</p>
+        <p class="hours-description">We're flexible with our schedule to accommodate your event needs. Reach out via phone, WhatsApp, or email to discuss your requirements.</p>
+    </section>
+
+    <!-- CTA -->
+    <section class="ready-to-work">
+        <div class="ready-icon">📷</div>
+        <h2>Ready to Work Together?</h2>
+        <p>Contact us today to discuss your photography and videography needs.<br>We're here to capture your special moments!</p>
+        <div class="action-buttons">
+            <a href="https://wa.me/60112732214" target="_blank" class="btn-action primary">💬 WhatsApp Us</a>
+            <a href="tel:+60112732214" class="btn-action">📞 Call Us</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">JJ Photography</div>
+                <p class="footer-desc">Premium freelance photography and videography services. Capturing memories across Selangor and Kuala Lumpur since 2020.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navigate</h4>
+                <a href="index.html">Home</a>
+                <a href="portfolio.html">Gallery</a>
+                <a href="pricing.html">Pricing</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p>+60 11-2732 2148</p>
+                <p>yapjunyit@gmail.com</p>
+                <p>Selangor / Kuala Lumpur</p>
+                <a href="https://instagram.com/jj.photography331" target="_blank">@jj.photography331</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 JJ Photography. All rights reserved. &middot; Capturing Memories Since 2020
+        </div>
+    </footer>
+
+    <script src="js/lumen.js"></script>
+
+    <!-- Show/hide referral name field -->
+    <script>
+        (function() {
+            var source = document.getElementById('source');
+            var refGroup = document.getElementById('referral-group');
+            if (source && refGroup) {
+                source.addEventListener('change', function() {
+                    refGroup.style.display = source.value === 'Friend Referral' ? 'block' : 'none';
+                });
+            }
+        })();
+    </script>
+
+    <!-- Make.com Webhook + Web3Forms dual submit -->
+    <script>
+        var MAKE_WEBHOOK_URL = 'https://hook.eu1.make.com/n7ulqw1w0wcw1w5r0fryvju1cmusve3m';
+        (function() {
+            var form = document.querySelector('.contact-form');
+            if (!form) return;
+
+            form.addEventListener('submit', function(e) {
+                var url = MAKE_WEBHOOK_URL;
+                if (!url || url.indexOf('YOUR_MAKE') === 0) return;
+                e.preventDefault();
+
+                var data = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    event_type: document.getElementById('event-type').value,
+                    event_date: document.getElementById('event-date').value,
+                    budget: document.getElementById('budget').value,
+                    source: document.getElementById('source').value,
+                    referral_name: document.getElementById('referral-name').value,
+                    message: document.getElementById('message').value,
+                    submitted_at: new Date().toISOString()
+                };
+
+                var submitted = false;
+                function doSubmit() {
+                    if (submitted) return;
+                    submitted = true;
+                    form.submit();
+                }
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'text/plain'},
+                    body: JSON.stringify(data),
+                    mode: 'no-cors'
+                }).finally(function() { doSubmit(); });
+
+                setTimeout(doSubmit, 10000);
+            });
+        })();
+    </script>
+</body>
+</html>

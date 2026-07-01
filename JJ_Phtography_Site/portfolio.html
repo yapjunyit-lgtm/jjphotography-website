@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse the JJ Photography portfolio — freelance photography of stage performances, events, portraits, formal events, birthday parties, and product photography.">
+    <meta property="og:title" content="JJ Photography — Portfolio">
+    <meta property="og:image" content="images/logo.png">
+    <title>JJ Photography — Portfolio</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/lumen.css">
+    <style>
+        /* ── Portfolio Page Styles ─────── */
+        .portfolio-filters { padding: 2rem 40px 3rem; text-align: center; }
+        .filter-buttons {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+        }
+        .filter-btn {
+            padding: 8px 20px;
+            font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+            color: var(--text-muted);
+            border: 1px solid var(--border-subtle); border-radius: 100px;
+            transition: all 0.35s var(--transition-smooth); cursor: none;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            color: var(--accent); border-color: var(--accent);
+            background: rgba(200, 169, 81, 0.06);
+        }
+
+        .portfolio-section { padding: 2rem 40px 80px; }
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 4px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .portfolio-item {
+            position: relative; overflow: hidden; aspect-ratio: 4 / 3;
+            cursor: none; background: var(--bg-surface);
+            opacity: 0; transform: translateY(20px);
+            animation: galleryFadeIn 0.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+        }
+        @keyframes galleryFadeIn { to { opacity: 1; transform: translateY(0); } }
+
+        .portfolio-item.hidden { display: none; }
+        .portfolio-image-wrapper {
+            width: 100%; height: 100%; position: relative; overflow: hidden;
+        }
+        .portfolio-image {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.7s var(--transition-smooth); will-change: transform;
+        }
+        .portfolio-item:hover .portfolio-image { transform: scale(1.06); }
+
+        .portfolio-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0) 60%);
+            display: flex; align-items: flex-end; padding: 24px;
+            opacity: 0;
+            transition: opacity 0.45s var(--transition-smooth);
+        }
+        .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+        .portfolio-overlay p {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem; color: var(--text-primary); margin: 0;
+        }
+        .portfolio-label {
+            padding: 1rem; text-align: center;
+            font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* Video play icon */
+        .video-play-icon {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem; color: white;
+            z-index: 5; pointer-events: none;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            transition: transform 0.3s, font-size 0.3s;
+        }
+        .portfolio-item:hover .video-play-icon {
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+
+        /* ── Lightbox ──────────────────── */
+        .lightbox {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.96);
+            z-index: 99990;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.4s var(--transition-smooth), visibility 0.4s var(--transition-smooth);
+        }
+        .lightbox.open { opacity: 1; visibility: visible; }
+        .lightbox img {
+            max-width: 90vw; max-height: 85vh; object-fit: contain;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            transform: scale(0.92);
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .lightbox.open img { transform: scale(1); }
+        .lightbox-video {
+            width: 80vw; height: 45vw;
+            max-width: 960px; max-height: 540px; border: none;
+        }
+        .lightbox-close {
+            position: absolute; top: 24px; right: 32px;
+            font-size: 2rem; color: var(--text-primary);
+            z-index: 99991; cursor: none;
+            width: 48px; height: 48px;
+            display: flex; align-items: center; justify-content: center;
+            transition: color 0.3s;
+        }
+        .lightbox-close:hover { color: var(--accent); }
+        .lightbox-nav {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            font-size: 2.5rem; color: var(--text-primary);
+            z-index: 99991; cursor: none; padding: 20px;
+            transition: color 0.3s;
+        }
+        .lightbox-nav:hover { color: var(--accent); }
+        .lightbox-prev { left: 16px; }
+        .lightbox-next { right: 16px; }
+        .lightbox-caption {
+            position: absolute; bottom: 32px; left: 50%;
+            transform: translateX(-50%); text-align: center;
+        }
+        .lightbox-caption p {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem; color: var(--text-primary);
+        }
+
+        .cta-section { padding: 80px 40px; text-align: center; background: var(--bg-surface); }
+
+        @media (max-width: 768px) {
+            .portfolio-filters, .portfolio-section { padding-left: 20px; padding-right: 20px; }
+            .portfolio-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 3px; }
+            .portfolio-overlay { opacity: 0.85; }
+            .portfolio-overlay p { font-size: 0.85rem; }
+            .lightbox img { max-width: 95vw; max-height: 80vh; }
+            .lightbox-nav { font-size: 1.8rem; padding: 12px; }
+            .lightbox-prev { left: 4px; }
+            .lightbox-next { right: 4px; }
+            .lightbox-video { width: 95vw; height: 53vw; }
+        }
+    </style>
+</head>
+<body>
+    <!-- CURSOR / PROGRESS / PRELOADER -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="preloader" id="preloader"><div class="preloader-logo">JJ</div></div>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar" id="mainNav">
+        <div class="navbar-brand">
+            <span class="navbar-logo-text">JJ Photography</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="portfolio.html" class="active">Portfolio</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <span class="section-label">Gallery</span>
+        <h1 class="section-title">Our Portfolio</h1>
+        <p class="section-subtitle" style="margin:0 auto;">Browse our collection of memorable moments</p>
+        <div class="header-divider">◆</div>
+    </section>
+
+    <!-- FILTERS -->
+    <section class="portfolio-filters">
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All Photos</button>
+            <button class="filter-btn" data-filter="stage">Stage &amp; Performances</button>
+            <button class="filter-btn" data-filter="portraits">Personal Portraits</button>
+            <button class="filter-btn" data-filter="formal">Formal Events</button>
+            <button class="filter-btn" data-filter="event">Events</button>
+            <button class="filter-btn" data-filter="birthday">Birthday Parties</button>
+            <button class="filter-btn" data-filter="product">Product</button>
+            <button class="filter-btn" data-filter="video">Video</button>
+        </div>
+    </section>
+
+    <!-- GALLERY GRID -->
+    <section class="portfolio-section">
+        <div class="portfolio-grid" id="portfolioGrid">
+            <!-- All items populated by JS below -->
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="reveal-on-scroll">
+            <span class="section-label">Love What You See?</span>
+            <h2 class="section-title">Let's Create<br>Something Beautiful</h2>
+            <p class="section-subtitle" style="margin:0 auto 2rem;">Book your session and let us capture your own unforgettable moments.</p>
+            <a href="contact.html" class="cta-button primary">Book Your Session</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">JJ Photography</div>
+                <p class="footer-desc">Premium freelance photography and videography services. Capturing memories across Selangor and Kuala Lumpur since 2020.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navigate</h4>
+                <a href="index.html">Home</a>
+                <a href="portfolio.html">Gallery</a>
+                <a href="pricing.html">Pricing</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p>+60 11-2732 2148</p>
+                <p>yapjunyit@gmail.com</p>
+                <p>Selangor / Kuala Lumpur</p>
+                <a href="https://instagram.com/jj.photography331" target="_blank">@jj.photography331</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 JJ Photography. All rights reserved. &middot; Capturing Memories Since 2020
+        </div>
+    </footer>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">&times;</button>
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev">‹</button>
+        <button class="lightbox-nav lightbox-next" id="lightboxNext">›</button>
+        <div class="lightbox-content" id="lightboxContent"></div>
+        <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+
+    <script src="js/lumen.js"></script>
+    <script>
+        /* ─── PORTFOLIO PAGE SCRIPTS ─── */
+
+        /* All gallery items — preserved exactly from the original */
+        var portfolioItems = [
+            // STAGE & PERFORMANCES
+            { category: 'stage', title: 'Drum Ensemble Performance', img: 'images/stage-performances/2O7A2941.JPG', video: null },
+            { category: 'stage', title: 'Solo Performance', img: 'images/stage-performances/2O7A3180.JPG', video: null },
+            { category: 'stage', title: 'Group Performance', img: 'images/stage-performances/2O7A3425.JPG', video: null },
+            { category: 'stage', title: 'Orchestra Concert', img: 'images/stage-performances/2O7A3456.JPG', video: null },
+            { category: 'stage', title: 'String Orchestra', img: 'images/stage-performances/2O7A3498.JPG', video: null },
+            { category: 'stage', title: 'Concert Performance', img: 'images/stage-performances/JJ--105.jpg', video: null },
+            { category: 'stage', title: 'Instrumental Solo', img: 'images/stage-performances/JJ--38.jpg', video: null },
+            { category: 'stage', title: 'Full Orchestra', img: 'images/stage-performances/JJ--44.jpg', video: null },
+            { category: 'stage', title: 'Ensemble Performance', img: 'images/stage-performances/JJ--6.jpg', video: null },
+            { category: 'stage', title: 'Stage Highlights', img: 'images/stage-performances/JJ-000-2.jpg', video: null },
+            { category: 'stage', title: 'Musical Performance', img: 'images/stage-performances/JJ-000-6.jpg', video: null },
+            { category: 'stage', title: 'Concert Evening', img: 'images/stage-performances/JJ-000-18.jpg', video: null },
+            // PERSONAL PORTRAITS
+            { category: 'portraits', title: 'Beach Portrait', img: 'images/personal-portraits/%23JJ0007-F--3.jpg', video: null },
+            { category: 'portraits', title: 'Traditional Portrait', img: 'images/personal-portraits/%23JJ0007-F--37.jpg', video: null },
+            { category: 'portraits', title: 'Casual Beach Shot', img: 'images/personal-portraits/%23JJ0007-F--41.jpg', video: null },
+            { category: 'portraits', title: 'Studio Portrait', img: 'images/personal-portraits/%23JJ0007-F--44.jpg', video: null },
+            { category: 'portraits', title: 'Family Portrait', img: 'images/personal-portraits/%23JJ0007-F--50.jpg', video: null },
+            { category: 'portraits', title: 'Outdoor Portrait', img: 'images/personal-portraits/%23JJ0007-F--8.jpg', video: null },
+            { category: 'portraits', title: 'Portrait Study', img: 'images/personal-portraits/gj%2024.png', video: null },
+            { category: 'portraits', title: 'Artistic Portrait', img: 'images/personal-portraits/gj%2031.png', video: null },
+            { category: 'portraits', title: 'Creative Portrait', img: 'images/personal-portraits/gj%2034.png', video: null },
+            // FORMAL EVENTS
+            { category: 'formal', title: 'Panel Discussion', img: 'images/formal-events/JJ-00010-145.jpg', video: null },
+            { category: 'formal', title: 'Conference Attendees', img: 'images/formal-events/JJ-00010-147.jpg', video: null },
+            { category: 'formal', title: 'Speaker Presentation', img: 'images/formal-events/JJ-00010-154.jpg', video: null },
+            { category: 'formal', title: 'Q&A Session', img: 'images/formal-events/JJ-00010-195.jpg', video: null },
+            { category: 'formal', title: 'Audience Engagement', img: 'images/formal-events/JJ-00010-260.jpg', video: null },
+            { category: 'formal', title: 'Corporate Event', img: 'images/formal-events/JJ-00010-287.jpg', video: null },
+            { category: 'formal', title: 'Lecture Hall', img: 'images/formal-events/JJ-00010-29.jpg', video: null },
+            { category: 'formal', title: 'Audience Discussion', img: 'images/formal-events/JJ-00010-292.jpg', video: null },
+            { category: 'formal', title: 'Panel Gathering', img: 'images/formal-events/JJ-00010-297.jpg', video: null },
+            { category: 'formal', title: 'Corporate Meeting', img: 'images/formal-events/JJ-00010-371.jpg', video: null },
+            { category: 'formal', title: 'Seminar Session', img: 'images/formal-events/JJ-00010-44.jpg', video: null },
+            { category: 'formal', title: 'Summit Event', img: 'images/formal-events/JJ-00010-61.jpg', video: null },
+            // EVENTS
+            { category: 'event', title: 'Event Coverage', img: 'images/events/%23JJ0002-1-Backstage-144.jpg', video: null },
+            { category: 'event', title: 'Event Highlights', img: 'images/events/%23JJ0002-1-Prom%20Night%2025%27-168.jpg', video: null },
+            { category: 'event', title: 'Event Documentation', img: 'images/events/%23JJ0002-1-Prom%20Night%2025%27-237.jpg', video: null },
+            { category: 'event', title: 'Crowd Moments', img: 'images/events/%23JJ0002-1-Prom%20Night%2025%27-265.jpg', video: null },
+            { category: 'event', title: 'Event Details', img: 'images/events/%23JJ0002-1-Prom%20Night%2025%27-268.jpg', video: null },
+            { category: 'event', title: 'Special Moments', img: 'images/events/%23JJ0002-1-Prom%20Night%2025%27-292.jpg', video: null },
+            { category: 'event', title: 'Event Moments', img: 'images/events/%23JJ0007-G--2.jpg', video: null },
+            { category: 'event', title: 'Event Highlights', img: 'images/events/%23JJ0007-G--5.jpg', video: null },
+            { category: 'event', title: 'Candid Moments', img: 'images/events/%23JJ0007-G--7.jpg', video: null },
+            { category: 'event', title: 'Guest Interactions', img: 'images/events/%23JJ0007-G--22.jpg', video: null },
+            // PRODUCT
+            { category: 'product', title: 'Product Shot', img: 'images/product/%23JJ0006_P-10.jpg', video: null },
+            { category: 'product', title: 'Product Display', img: 'images/product/%23JJ0006_P-2.jpg', video: null },
+            { category: 'product', title: 'Product Detail', img: 'images/product/%23JJ0006_P-20.jpg', video: null },
+            { category: 'product', title: 'Product Showcase', img: 'images/product/%23JJ0006_P-28.jpg', video: null },
+            { category: 'product', title: 'Studio Product', img: 'images/product/%23JJ0006_P-34.jpg', video: null },
+            { category: 'product', title: 'Product Lighting', img: 'images/product/%23JJ0006_P-44.jpg', video: null },
+            // BIRTHDAY PARTIES
+            { category: 'birthday', title: 'Racing Themed Party', img: 'images/birthday-parties/%23F%26G-1-582.jpg', video: null },
+            { category: 'birthday', title: 'Mother & Child Moment', img: 'images/birthday-parties/%23F%26G-1-611.jpg', video: null },
+            { category: 'birthday', title: 'Bubble Play Time', img: 'images/birthday-parties/%23JJ0009%20%28146%20of%20205%29.jpg', video: null },
+            { category: 'birthday', title: 'Decorated Birthday Cake', img: 'images/birthday-parties/%23JJ0009%20%283%20of%20205%29.jpg', video: null },
+            { category: 'birthday', title: 'Friends & Family Time', img: 'images/birthday-parties/%23JJ0009%20%2836%20of%20205%29.jpg', video: null },
+            { category: 'birthday', title: 'Outdoor Party Setup', img: 'images/birthday-parties/%23JJ0009%20%2837%20of%20205%29.jpg', video: null },
+            { category: 'birthday', title: 'Craft Activity', img: 'images/birthday-parties/%23JJ0009%20%2886%20of%20205%29.jpg', video: null },
+            { category: 'birthday', title: 'Character Meet & Greet', img: 'images/birthday-parties/%23JJ0009%20%2894%20of%20205%29.jpg', video: null },
+            { category: 'birthday', title: 'Interactive Fun', img: 'images/birthday-parties/%23MIKHAIL-1-624.jpg', video: null },
+            // VIDEO
+            { category: 'video', title: 'Birthday Party Highlights', img: 'https://img.youtube.com/vi/rhydEb9Jjyg/hqdefault.jpg', video: 'rhydEb9Jjyg' },
+            { category: 'video', title: 'Store Opening', img: 'https://img.youtube.com/vi/k8QTX0MJ6mE/hqdefault.jpg', video: 'k8QTX0MJ6mE' },
+        ];
+
+        /* Build gallery grid */
+        var galleryGrid = document.getElementById('portfolioGrid');
+        portfolioItems.forEach(function(item, index) {
+            var el = document.createElement('div');
+            el.className = 'portfolio-item';
+            el.setAttribute('data-category', item.category);
+            el.setAttribute('data-index', index);
+            el.style.animationDelay = (index % 10) * 0.04 + 's';
+
+            var labelText = item.category === 'stage' ? 'Stage Performance' :
+                            item.category === 'portraits' ? 'Personal Portrait' :
+                            item.category === 'formal' ? 'Formal Event' :
+                            item.category === 'event' ? 'Event' :
+                            item.category === 'birthday' ? 'Birthday Party' :
+                            item.category === 'product' ? 'Product' : 'Video';
+
+            if (item.video) {
+                el.innerHTML =
+                    '<div class="portfolio-image-wrapper">' +
+                        '<img loading="lazy" src="' + item.img + '" alt="' + item.title + '" class="portfolio-image">' +
+                        '<div class="portfolio-overlay"><p>' + item.title + '</p></div>' +
+                        '<div class="video-play-icon">▶</div>' +
+                    '</div>' +
+                    '<p class="portfolio-label">VIDEO</p>';
+            } else {
+                el.innerHTML =
+                    '<div class="portfolio-image-wrapper">' +
+                        '<img loading="lazy" src="' + item.img + '" alt="' + item.title + '" class="portfolio-image">' +
+                        '<div class="portfolio-overlay"><p>' + item.title + '</p></div>' +
+                    '</div>' +
+                    '<p class="portfolio-label">' + labelText + '</p>';
+            }
+
+            el.querySelector('.portfolio-image-wrapper').addEventListener('click', function() {
+                openLightbox(index);
+            });
+
+            galleryGrid.appendChild(el);
+        });
+
+        /* Filtering */
+        var filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                filterBtns.forEach(function(b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+                var filter = btn.getAttribute('data-filter');
+                var items = document.querySelectorAll('.portfolio-item');
+                items.forEach(function(item, i) {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.classList.remove('hidden');
+                        item.style.animation = 'none';
+                        item.offsetHeight;
+                        item.style.animation = 'galleryFadeIn 0.5s cubic-bezier(0.65, 0, 0.35, 1) forwards';
+                        item.style.animationDelay = (i % 10) * 0.04 + 's';
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        /* Lightbox */
+        var lightbox = document.getElementById('lightbox');
+        var lightboxContent = document.getElementById('lightboxContent');
+        var lightboxCaption = document.getElementById('lightboxCaption');
+        var currentIndex = -1;
+
+        function openLightbox(index) {
+            var item = portfolioItems[index];
+            if (!item) return;
+            currentIndex = index;
+
+            if (item.video) {
+                lightboxContent.innerHTML =
+                    '<iframe src="https://www.youtube.com/embed/' + item.video +
+                    '?autoplay=1&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen class="lightbox-video"></iframe>';
+            } else {
+                lightboxContent.innerHTML =
+                    '<img src="' + item.img + '" alt="' + item.title + '">';
+            }
+            lightboxCaption.innerHTML = '<p>' + item.title + '</p>';
+            lightbox.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            updateNavButtons();
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('open');
+            document.body.style.overflow = '';
+            lightboxContent.innerHTML = '';
+            currentIndex = -1;
+        }
+
+        function updateNavButtons() {
+            document.getElementById('lightboxPrev').style.display = currentIndex > 0 ? 'block' : 'none';
+            document.getElementById('lightboxNext').style.display = currentIndex < portfolioItems.length - 1 ? 'block' : 'none';
+        }
+
+        document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+        document.getElementById('lightboxPrev').addEventListener('click', function() {
+            if (currentIndex > 0) openLightbox(currentIndex - 1);
+        });
+        document.getElementById('lightboxNext').addEventListener('click', function() {
+            if (currentIndex < portfolioItems.length - 1) openLightbox(currentIndex + 1);
+        });
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) closeLightbox();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (!lightbox.classList.contains('open')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft' && currentIndex > 0) openLightbox(currentIndex - 1);
+            if (e.key === 'ArrowRight' && currentIndex < portfolioItems.length - 1) openLightbox(currentIndex + 1);
+        });
+    </script>
+</body>
+</html>

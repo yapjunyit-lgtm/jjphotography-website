@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invoice — JJ Photography</title>
+<style>
+  :root { --cream:#F5F1E8; --brown:#3D3228; --gold:#B8933F; --gray:#6B6360; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--cream); font-family:'Georgia','Times New Roman',serif; color:var(--brown); padding:2rem; display:flex; justify-content:center; }
+  .invoice { background:white; max-width:800px; width:100%; padding:3rem; border:2px solid var(--brown); }
+  .header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:2.5rem; padding-bottom:1.5rem; border-bottom:1px solid var(--gold); }
+  .header h1 { font-size:1.8rem; letter-spacing:2px; }
+  .header .sub { color:var(--gray); font-size:0.85rem; margin-top:0.3rem; }
+  .logo { display:flex; align-items:center; gap:0.5rem; }
+  .inv-details { text-align:right; }
+  .inv-details .inv-no { font-size:1.2rem; font-weight:bold; color:var(--gold); }
+  .section { margin-bottom:2rem; }
+  .section h3 { font-size:0.75rem; text-transform:uppercase; letter-spacing:2px; color:var(--gray); margin-bottom:0.5rem; }
+  .section p { line-height:1.7; font-size:0.95rem; }
+  .two-col { display:flex; gap:3rem; }
+  .two-col > div { flex:1; }
+  .items-table { width:100%; border-collapse:collapse; margin:1.5rem 0; }
+  .items-table th { background:var(--brown); color:white; padding:0.7rem 1rem; text-align:left; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; }
+  .items-table td { padding:0.7rem 1rem; border-bottom:1px solid #e8e4dc; font-size:0.95rem; }
+  .items-table .price { text-align:right; font-family:'Courier New',monospace; }
+  .items-table .total-row td { font-weight:bold; border-top:2px solid var(--brown); padding-top:1rem; font-size:1.1rem; }
+  .add-row { display:flex; gap:0.5rem; margin:1rem 0; }
+  .add-row input { flex:1; padding:0.5rem; border:1px solid #ccc; font-family:inherit; font-size:0.9rem; }
+  .add-row input.price-input { max-width:100px; }
+  .add-row button { background:var(--brown); color:white; border:none; padding:0.5rem 1.2rem; cursor:pointer; font-family:inherit; font-size:0.85rem; letter-spacing:1px; }
+  .add-row button:hover { background:var(--gold); }
+  .print-btn { position:fixed; top:1.5rem; right:1.5rem; background:var(--brown); color:white; border:none; padding:0.7rem 1.5rem; cursor:pointer; font-family:inherit; font-size:0.9rem; letter-spacing:1px; border-radius:4px; z-index:100; }
+  .print-btn:hover { background:var(--gold); }
+  .notes { margin-top:2rem; padding-top:1rem; border-top:1px solid #e8e4dc; color:var(--gray); font-size:0.85rem; line-height:1.6; }
+  @media print {
+    .print-btn, .add-row { display:none; }
+    body { background:white; padding:0; }
+    .invoice { border:none; padding:1rem; }
+  }
+</style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">🖨 Print / Save PDF</button>
+
+<div class="invoice" id="invoice">
+  <div class="header">
+    <div class="logo">
+      <div>
+        <h1>JJ PHOTOGRAPHY</h1>
+        <p class="sub">Capturing Memories Since 2020</p>
+        <p class="sub" style="margin-top:0.5rem">📞 +60 11-2732 2148</p>
+        <p class="sub">📧 yapjunyit@gmail.com</p>
+      </div>
+    </div>
+    <div class="inv-details">
+      <p class="inv-no">INVOICE</p>
+      <p class="sub">Date: <span id="inv-date"></span></p>
+      <p class="sub">Inv #: JJ-<span id="inv-num"></span></p>
+    </div>
+  </div>
+
+  <div class="two-col section">
+    <div>
+      <h3>Bill To</h3>
+      <p id="client-name-display"><em>Enter client details below</em></p>
+      <p id="client-phone-display"></p>
+      <p id="client-email-display"></p>
+    </div>
+    <div>
+      <h3>Shoot Details</h3>
+      <p id="event-type-display"></p>
+      <p id="shoot-date-display"></p>
+      <p id="shoot-location-display"></p>
+    </div>
+  </div>
+
+  <h3>Services</h3>
+  <table class="items-table">
+    <thead><tr><th>Description</th><th class="price">Amount (RM)</th></tr></thead>
+    <tbody id="items-body">
+      <tr><td>Photography Session — <span class="s-event">Event</span></td><td class="price"><span class="s-price">0</span></td></tr>
+    </tbody>
+    <tfoot>
+      <tr><td></td><td></td></tr>
+      <tr class="total-row"><td>Total</td><td class="price" id="total-display">RM 0</td></tr>
+    </tfoot>
+  </table>
+
+  <div class="add-row">
+    <input type="text" id="item-desc" placeholder="Add line item (e.g. Extra edits)">
+    <input type="number" id="item-price" class="price-input" placeholder="RM" min="0">
+    <button onclick="addItem()">+ Add</button>
+  </div>
+
+  <div class="notes" id="invoice-notes">
+    <strong>Payment Details:</strong> Bank transfer to CIMB 7612345678 (Yap Jun Yit)<br>
+    <strong>Payment Terms:</strong> 25% deposit to confirm booking. Balance due on shoot day.<br>
+    <strong>Thank you for choosing JJ Photography!</strong>
+  </div>
+</div>
+
+<!-- Client form -->
+<div style="max-width:800px;margin:2rem auto 0;">
+  <div style="background:white;border:2px solid var(--brown);padding:1.5rem 2rem;">
+    <h3 style="margin-bottom:1rem;color:var(--gold)">Fill in client details</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;">
+      <div><label style="font-size:0.8rem;color:var(--gray)">Client Name</label><input type="text" id="c-name" style="width:100%;padding:0.5rem;border:1px solid #ccc;font-family:inherit" placeholder="Ahmad Syafiq"></div>
+      <div><label style="font-size:0.8rem;color:var(--gray)">Phone</label><input type="text" id="c-phone" style="width:100%;padding:0.5rem;border:1px solid #ccc;font-family:inherit" placeholder="+60 12-345 6789"></div>
+      <div><label style="font-size:0.8rem;color:var(--gray)">Email</label><input type="text" id="c-email" style="width:100%;padding:0.5rem;border:1px solid #ccc;font-family:inherit" placeholder="ahmad@email.com"></div>
+      <div><label style="font-size:0.8rem;color:var(--gray)">Event Type</label><input type="text" id="c-event" style="width:100%;padding:0.5rem;border:1px solid #ccc;font-family:inherit" placeholder="Graduation"></div>
+      <div><label style="font-size:0.8rem;color:var(--gray)">Shoot Date</label><input type="date" id="c-date" style="width:100%;padding:0.5rem;border:1px solid #ccc;font-family:inherit"></div>
+      <div><label style="font-size:0.8rem;color:var(--gray)">Location</label><input type="text" id="c-loc" style="width:100%;padding:0.5rem;border:1px solid #ccc;font-family:inherit" placeholder="University Malaya"></div>
+      <div><label style="font-size:0.8rem;color:var(--gray)">Package Amount (RM)</label><input type="number" id="c-price" style="width:100%;padding:0.5rem;border:1px solid #ccc;font-family:inherit" placeholder="250" min="0" onchange="updateInvoice()"></div>
+      <div><label style="font-size:0.8rem;color:var(--gray)">Invoice #</label><input type="text" id="c-inv" style="width:100%;padding:0.5rem;border:1px solid #ccc;font-family:inherit" placeholder="001"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Set date
+  document.getElementById('inv-date').textContent = new Date().toLocaleDateString('en-MY', {year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('inv-num').textContent = '001';
+
+  function updateInvoice() {
+    var n = document.getElementById('c-name').value || 'Client Name';
+    var ph = document.getElementById('c-phone').value;
+    var em = document.getElementById('c-email').value;
+    var ev = document.getElementById('c-event').value || 'Event';
+    var dt = document.getElementById('c-date').value;
+    var lo = document.getElementById('c-loc').value;
+    var pr = document.getElementById('c-price').value || '0';
+    var inv = document.getElementById('c-inv').value || '001';
+
+    var dtFormatted = dt ? new Date(dt + 'T00:00:00').toLocaleDateString('en-MY', {weekday:'long',year:'numeric',month:'long',day:'numeric'}) : 'TBD';
+
+    document.getElementById('client-name-display').innerHTML = '<strong>' + n + '</strong>';
+    document.getElementById('client-phone-display').textContent = ph ? '📱 ' + ph : '';
+    document.getElementById('client-email-display').textContent = em ? '📧 ' + em : '';
+    document.getElementById('event-type-display').textContent = '📸 ' + ev;
+    document.getElementById('shoot-date-display').textContent = '📅 ' + dtFormatted;
+    document.getElementById('shoot-location-display').textContent = lo ? '📍 ' + lo : '';
+    document.getElementById('inv-num').textContent = inv;
+
+    document.querySelector('.s-event').textContent = ev;
+    document.querySelector('.s-price').textContent = parseInt(pr).toLocaleString();
+    recalcTotal();
+  }
+
+  function addItem() {
+    var desc = document.getElementById('item-desc').value.trim();
+    var price = parseInt(document.getElementById('item-price').value) || 0;
+    if (!desc || price <= 0) return;
+    var row = document.createElement('tr');
+    row.innerHTML = '<td>' + desc + '</td><td class="price">' + price.toLocaleString() + '</td>';
+    document.getElementById('items-body').appendChild(row);
+    document.getElementById('item-desc').value = '';
+    document.getElementById('item-price').value = '';
+    recalcTotal();
+  }
+
+  function recalcTotal() {
+    var rows = document.querySelectorAll('#items-body tr');
+    var total = 0;
+    rows.forEach(function(r) {
+      var p = r.querySelector('.price');
+      if (p) total += parseInt(p.textContent.replace(/,/g,'')) || 0;
+    });
+    document.getElementById('total-display').textContent = 'RM ' + total.toLocaleString();
+  }
+
+  // Listen for changes
+  document.querySelectorAll('input').forEach(function(el) {
+    el.addEventListener('input', updateInvoice);
+  });
+</script>
+
+</body>
+</html>
