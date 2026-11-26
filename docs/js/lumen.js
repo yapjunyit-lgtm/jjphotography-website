@@ -1,45 +1,8 @@
 /* ============================================================
    LUMEN SHARED SCRIPTS
-   Custom cursor, scroll progress, nav, reveal animations,
-   mobile menu, navbar scroll effect, and preloader.
+   Scroll progress, scroll reveal, navbar effect, mobile menu.
    Shared across all pages of JJ Photography.
    ============================================================ */
-
-/* ── Custom Cursor ────────────────────────────────── */
-(function() {
-    const cursor = document.getElementById('cursor');
-    const cursorDot = document.getElementById('cursorDot');
-    if (!cursor || !cursorDot) return;
-
-    let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
-
-    document.addEventListener('mousemove', function(e) {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        cursorDot.style.left = mouseX + 'px';
-        cursorDot.style.top = mouseY + 'px';
-    });
-
-    function animateCursor() {
-        cursorX += (mouseX - cursorX) * 0.15;
-        cursorY += (mouseY - cursorY) * 0.15;
-        cursor.style.left = cursorX + 'px';
-        cursor.style.top = cursorY + 'px';
-        requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
-
-    // Enlarge cursor on hoverable elements
-    var hoverTargets = document.querySelectorAll(
-        'a, button, .gallery-item, .service-card, .filter-btn, ' +
-        '.testimonial-btn, .testimonial-dot, .nav-dot, .hamburger, ' +
-        'input, select, textarea, .pricing-card, .contact-card, .portfolio-item'
-    );
-    hoverTargets.forEach(function(el) {
-        el.addEventListener('mouseenter', function() { cursor.classList.add('hover'); });
-        el.addEventListener('mouseleave', function() { cursor.classList.remove('hover'); });
-    });
-})();
 
 /* ── Scroll Progress Bar ──────────────────────────── */
 (function() {
@@ -50,7 +13,7 @@
         var docHeight = document.documentElement.scrollHeight - window.innerHeight;
         var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
         bar.style.width = progress + '%';
-    });
+    }, { passive: true });
 })();
 
 /* ── Scroll Reveal (Intersection Observer) ────────── */
@@ -59,9 +22,12 @@
     if (!revealEls.length) return;
     var observer = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
-            if (entry.isIntersecting) entry.target.classList.add('visible');
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
         });
-    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
     revealEls.forEach(function(el) { observer.observe(el); });
 })();
 
@@ -75,7 +41,7 @@
         } else {
             navbar.classList.remove('scrolled');
         }
-    });
+    }, { passive: true });
 })();
 
 /* ── Mobile Menu ──────────────────────────────────── */
@@ -97,16 +63,5 @@
             menu.classList.remove('open');
             document.body.style.overflow = '';
         });
-    });
-})();
-
-/* ── Preloader ────────────────────────────────────── */
-(function() {
-    var preloader = document.getElementById('preloader');
-    if (!preloader) return;
-    window.addEventListener('load', function() {
-        setTimeout(function() {
-            preloader.classList.add('hidden');
-        }, 1000);
     });
 })();

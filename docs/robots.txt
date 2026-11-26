@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yapjunyit-lgtm.github.io/jjphotography-website/sitemap.xml

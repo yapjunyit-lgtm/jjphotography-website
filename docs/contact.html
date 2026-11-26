@@ -3,21 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Contact JJ Photography for freelance photography and videography services in Selangor and Kuala Lumpur.">
+    <meta name="description" content="Contact JJ Photography to book event, stage, birthday, portrait, or product photography in Kuala Lumpur and Selangor.">
+    <link rel="canonical" href="https://yapjunyit-lgtm.github.io/jjphotography-website/contact.html">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yapjunyit-lgtm.github.io/jjphotography-website/contact.html">
     <meta property="og:title" content="JJ Photography — Contact Us">
-    <meta property="og:image" content="images/logo.png">
-    <title>JJ Photography — Contact Us</title>
+    <meta property="og:description" content="Book your photography or videography session in Kuala Lumpur &amp; Selangor via WhatsApp, email, or our inquiry form.">
+    <meta property="og:image" content="https://yapjunyit-lgtm.github.io/jjphotography-website/images/stage-performances/2O7A3456.JPG">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://yapjunyit-lgtm.github.io/jjphotography-website/images/stage-performances/2O7A3456.JPG">
+    <title>JJ Photography — Contact Us | KL &amp; Selangor</title>
     <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/lumen.css">
     <style>
-        /* ── Contact Methods Grid ─────────────────── */
         .contact-methods { padding: 80px 40px; }
         .contact-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 1px;
             max-width: 1100px;
             margin: 0 auto;
@@ -61,7 +66,6 @@
             text-transform: uppercase;
         }
 
-        /* ── Contact Form ────────────────────────── */
         .contact-form-section { padding: 80px 40px; }
         .contact-form {
             max-width: 700px;
@@ -75,9 +79,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 1.5rem;
         }
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
+        .form-group { margin-bottom: 1.5rem; }
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
@@ -107,10 +109,9 @@
             border-color: var(--accent);
         }
         .form-group textarea { resize: vertical; }
-
         .contact-form .cta-button { width: 100%; margin-top: 0.5rem; }
+        .contact-form .cta-button:disabled { opacity: 0.6; cursor: wait; }
 
-        /* ── Service Area ────────────────────────── */
         .service-area { padding: 80px 40px; }
         .service-area-card {
             background: var(--bg-surface);
@@ -134,7 +135,6 @@
         }
         .service-area-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
 
-        /* ── Business Hours ──────────────────────── */
         .business-hours {
             padding: 80px 40px;
             background: var(--bg-surface);
@@ -161,11 +161,7 @@
             margin: 0 auto;
         }
 
-        /* ── CTA Section ─────────────────────────── */
-        .ready-to-work {
-            padding: 100px 40px;
-            text-align: center;
-        }
+        .ready-to-work { padding: 100px 40px; text-align: center; }
         .ready-icon { font-size: 2.5rem; margin-bottom: 1.5rem; display: block; }
         .ready-to-work h2 {
             font-family: 'Playfair Display', serif;
@@ -185,7 +181,7 @@
             border: 1.5px solid var(--accent);
             color: var(--accent);
             transition: all 0.4s var(--transition-smooth);
-            cursor: none;
+            cursor: pointer;
         }
         .btn-action:hover { background: var(--accent); color: var(--bg-deep); }
         .btn-action.primary { background: var(--accent); color: var(--bg-deep); }
@@ -205,17 +201,12 @@
     </style>
 </head>
 <body>
-    <!-- CURSOR / PROGRESS / PRELOADER -->
-    <div class="cursor" id="cursor"></div>
-    <div class="cursor-dot" id="cursorDot"></div>
     <div class="scroll-progress" id="scrollProgress"></div>
-    <div class="preloader" id="preloader"><div class="preloader-logo">JJ</div></div>
 
-    <!-- NAVIGATION -->
     <nav class="navbar" id="mainNav">
-        <div class="navbar-brand">
+        <a href="index.html" class="navbar-brand">
             <span class="navbar-logo-text">JJ Photography</span>
-        </div>
+        </a>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="portfolio.html">Portfolio</a></li>
@@ -233,7 +224,6 @@
         <a href="contact.html">Contact</a>
     </div>
 
-    <!-- PAGE HEADER -->
     <section class="page-header">
         <span class="section-label">Get In Touch</span>
         <h1 class="section-title">Contact Us</h1>
@@ -241,14 +231,19 @@
         <div class="header-divider">◆</div>
     </section>
 
-    <!-- CONTACT METHODS -->
     <section class="contact-methods">
         <div class="container">
             <div class="contact-cards">
                 <div class="contact-card reveal-on-scroll">
+                    <div class="contact-icon-box">💬</div>
+                    <h3 class="contact-title">WhatsApp</h3>
+                    <a href="https://wa.me/601127322148?text=Hi%20JJ%20Photography%2C%20I%27d%20like%20to%20enquire%20about%20a%20shoot." target="_blank" rel="noopener noreferrer" class="contact-value">+60 11-2732 2148</a>
+                    <p class="contact-action">Fastest Reply</p>
+                </div>
+                <div class="contact-card reveal-on-scroll">
                     <div class="contact-icon-box">📞</div>
                     <h3 class="contact-title">Phone</h3>
-                    <a href="tel:+60112732214" class="contact-value">+60 11-2732 2148</a>
+                    <a href="tel:+601127322148" class="contact-value">+60 11-2732 2148</a>
                     <p class="contact-action">Tap to Call</p>
                 </div>
                 <div class="contact-card reveal-on-scroll">
@@ -258,34 +253,28 @@
                     <p class="contact-action">Send an Email</p>
                 </div>
                 <div class="contact-card reveal-on-scroll">
-                    <div class="contact-icon-box">💬</div>
-                    <h3 class="contact-title">WhatsApp</h3>
-                    <a href="https://wa.me/60112732214" target="_blank" class="contact-value">+60 11-2732 2148</a>
-                    <p class="contact-action">Chat With Us</p>
-                </div>
-                <div class="contact-card reveal-on-scroll">
                     <div class="contact-icon-box">📱</div>
                     <h3 class="contact-title">Instagram</h3>
-                    <a href="https://instagram.com/jj.photography331" target="_blank" class="contact-value">@jj.photography331</a>
-                    <p class="contact-action">Follow Us</p>
+                    <a href="https://www.instagram.com/jj.photography331/" target="_blank" rel="noopener noreferrer" class="contact-value">@jj.photography331</a>
+                    <p class="contact-action">Follow &amp; DM</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CONTACT FORM -->
     <section class="contact-form-section">
         <div class="container">
             <div class="section-header reveal-on-scroll">
                 <span class="section-label">Send A Message</span>
                 <h2 class="section-title">Get In Touch</h2>
-                <p class="section-subtitle" style="margin:0 auto;">Fill out the form below and we'll get back to you within 24 hours</p>
+                <p class="section-subtitle" style="margin:0 auto;">Share your event details below and we'll reply within 24 hours (usually within a few hours on WhatsApp).</p>
             </div>
             <form class="contact-form reveal-on-scroll" action="https://api.web3forms.com/submit" method="POST">
                 <input type="hidden" name="access_key" value="d3a204e0-4bf8-4057-a410-a652efc60842">
                 <input type="hidden" name="subject" value="New Inquiry from JJ Photography Website">
                 <input type="hidden" name="from_name" value="JJ Photography Website">
-                <input type="hidden" name="redirect" value="https://jjproduction331.netlify.app/thank-you.html">
+                <input type="hidden" name="redirect" value="https://yapjunyit-lgtm.github.io/jjphotography-website/thank-you.html">
+                <input type="checkbox" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off">
                 <div class="form-row">
                     <div class="form-group">
                         <label for="name">Name *</label>
@@ -298,20 +287,19 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="phone">Phone</label>
-                        <input type="tel" id="phone" name="phone" placeholder="Your phone number">
+                        <label for="phone">Phone / WhatsApp</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+60 12-345 6789">
                     </div>
                     <div class="form-group">
-                        <label for="event-type">Event Type</label>
+                        <label for="event-type">Shoot Type</label>
                         <select id="event-type" name="event-type">
-                            <option value="">Select an event type</option>
-                            <option value="Wedding">Wedding</option>
+                            <option value="">Select a shoot type</option>
+                            <option value="Corporate / Formal Event">Corporate / Formal Event</option>
+                            <option value="Birthday / Private Party">Birthday / Private Party</option>
+                            <option value="Stage & Performance">Stage &amp; Performance</option>
                             <option value="Graduation">Graduation</option>
-                            <option value="Birthday">Birthday Party</option>
-                            <option value="Corporate">Corporate Event</option>
-                            <option value="Portrait">Personal Portrait</option>
-                            <option value="Product">Product Photography</option>
-                            <option value="Stage">Stage Performance</option>
+                            <option value="Personal Portrait">Personal Portrait</option>
+                            <option value="Brand / Product Photography">Brand / Product Photography</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
@@ -322,10 +310,15 @@
                         <input type="date" id="event-date" name="event-date">
                     </div>
                     <div class="form-group">
+                        <label for="event-location">Venue / Area</label>
+                        <input type="text" id="event-location" name="event-location" placeholder="e.g. KLCC, Petaling Jaya, Subang">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
                         <label for="budget">Budget (RM)</label>
                         <select id="budget" name="budget">
                             <option value="">Select your budget range</option>
-                            <option value="Below RM300">Below RM300</option>
                             <option value="RM300 - RM500">RM300 – RM500</option>
                             <option value="RM500 - RM1000">RM500 – RM1,000</option>
                             <option value="RM1000 - RM2000">RM1,000 – RM2,000</option>
@@ -333,8 +326,6 @@
                             <option value="Not Sure">Not Sure / Discuss</option>
                         </select>
                     </div>
-                </div>
-                <div class="form-row">
                     <div class="form-group">
                         <label for="source">How did you hear about us?</label>
                         <select id="source" name="source">
@@ -347,54 +338,50 @@
                             <option value="Other">Other</option>
                         </select>
                     </div>
-                    <div class="form-group" id="referral-group" style="display:none;">
-                        <label for="referral-name">Who referred you?</label>
-                        <input type="text" id="referral-name" name="referral-name" placeholder="Referrer's name">
-                    </div>
+                </div>
+                <div class="form-group" id="referral-group" style="display:none;">
+                    <label for="referral-name">Who referred you?</label>
+                    <input type="text" id="referral-name" name="referral-name" placeholder="Referrer's name">
                 </div>
                 <div class="form-group">
                     <label for="message">Message *</label>
-                    <textarea id="message" name="message" rows="5" required placeholder="Tell us about your event and what you're looking for..."></textarea>
+                    <textarea id="message" name="message" rows="5" required placeholder="Tell us about your event, estimated hours, and any key moments you want captured..."></textarea>
                 </div>
                 <button type="submit" class="cta-button primary" id="submit-btn">Send Message</button>
             </form>
         </div>
     </section>
 
-    <!-- SERVICE AREA -->
     <section class="service-area">
         <div class="service-area-card reveal-on-scroll">
             <div class="service-area-icon">📍</div>
             <h3>Service Area</h3>
-            <h4>Selangor / Kuala Lumpur</h4>
-            <p>We provide photography and videography services across Selangor and Kuala Lumpur</p>
+            <h4>Kuala Lumpur &amp; Selangor</h4>
+            <p>We cover events, celebrations, and brand shoots across Kuala Lumpur, Petaling Jaya, Subang, Shah Alam, Putrajaya, and surrounding Selangor areas.</p>
         </div>
     </section>
 
-    <!-- BUSINESS HOURS -->
     <section class="business-hours">
-        <h2>Business Hours</h2>
-        <p class="hours-label">Contact for Availability</p>
-        <p class="hours-description">We're flexible with our schedule to accommodate your event needs. Reach out via phone, WhatsApp, or email to discuss your requirements.</p>
+        <h2>Availability</h2>
+        <p class="hours-label">Weekdays &amp; Weekends by Booking</p>
+        <p class="hours-description">We're flexible with morning, evening, and weekend event schedules. Reach out via WhatsApp, phone, or email to check your date.</p>
     </section>
 
-    <!-- CTA -->
     <section class="ready-to-work">
         <div class="ready-icon">📷</div>
         <h2>Ready to Work Together?</h2>
-        <p>Contact us today to discuss your photography and videography needs.<br>We're here to capture your special moments!</p>
+        <p>Message us directly on WhatsApp with your shoot type, date, and location for the quickest response.</p>
         <div class="action-buttons">
-            <a href="https://wa.me/60112732214" target="_blank" class="btn-action primary">💬 WhatsApp Us</a>
-            <a href="tel:+60112732214" class="btn-action">📞 Call Us</a>
+            <a href="https://wa.me/601127322148?text=Hi%20JJ%20Photography%2C%20I%27d%20like%20to%20enquire%20about%20a%20shoot." target="_blank" rel="noopener noreferrer" class="btn-action primary">💬 WhatsApp Us</a>
+            <a href="tel:+601127322148" class="btn-action">📞 Call Us</a>
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-grid">
             <div>
                 <div class="footer-brand">JJ Photography</div>
-                <p class="footer-desc">Premium freelance photography and videography services. Capturing memories across Selangor and Kuala Lumpur since 2020.</p>
+                <p class="footer-desc">Freelance photography and videography services across Kuala Lumpur and Selangor since 2020.</p>
             </div>
             <div class="footer-col">
                 <h4>Navigate</h4>
@@ -405,10 +392,11 @@
             </div>
             <div class="footer-col">
                 <h4>Contact</h4>
-                <p>+60 11-2732 2148</p>
-                <p>yapjunyit@gmail.com</p>
-                <p>Selangor / Kuala Lumpur</p>
-                <a href="https://instagram.com/jj.photography331" target="_blank">@jj.photography331</a>
+                <a href="tel:+601127322148">+60 11-2732 2148</a>
+                <a href="mailto:yapjunyit@gmail.com">yapjunyit@gmail.com</a>
+                <p>Kuala Lumpur / Selangor</p>
+                <a href="https://www.instagram.com/jj.photography331/" target="_blank" rel="noopener noreferrer">IG: @jj.photography331</a>
+                <p>小红书: jj_p.331</p>
             </div>
         </div>
         <div class="footer-bottom">
@@ -418,7 +406,6 @@
 
     <script src="js/lumen.js"></script>
 
-    <!-- Show/hide referral name field -->
     <script>
         (function() {
             var source = document.getElementById('source');
@@ -436,6 +423,7 @@
         var MAKE_WEBHOOK_URL = 'https://hook.eu1.make.com/n7ulqw1w0wcw1w5r0fryvju1cmusve3m';
         (function() {
             var form = document.querySelector('.contact-form');
+            var submitBtn = document.getElementById('submit-btn');
             if (!form) return;
 
             form.addEventListener('submit', function(e) {
@@ -443,12 +431,18 @@
                 if (!url || url.indexOf('YOUR_MAKE') === 0) return;
                 e.preventDefault();
 
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Sending...';
+                }
+
                 var data = {
                     name: document.getElementById('name').value,
                     email: document.getElementById('email').value,
                     phone: document.getElementById('phone').value,
                     event_type: document.getElementById('event-type').value,
                     event_date: document.getElementById('event-date').value,
+                    event_location: document.getElementById('event-location').value,
                     budget: document.getElementById('budget').value,
                     source: document.getElementById('source').value,
                     referral_name: document.getElementById('referral-name').value,
@@ -470,7 +464,7 @@
                     mode: 'no-cors'
                 }).finally(function() { doSubmit(); });
 
-                setTimeout(doSubmit, 10000);
+                setTimeout(doSubmit, 1500);
             });
         })();
     </script>
